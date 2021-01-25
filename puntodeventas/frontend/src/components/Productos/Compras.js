@@ -1,17 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getProductos, deleteProducto } from '../../actions/productos';
+import { getProductos1 } from '../../actions/productos';
 
-export class Ventas extends Component {
+export class Compras extends Component {
     static propTypes = {
         productos: PropTypes.array.isRequired,
-        getProductos: PropTypes.func.isRequired,
-        deleteProducto: PropTypes.func.isRequired
     }
 
     componentDidMount() {
-        this.props.getProductos();
+        this.props.getProductos1();
         console.log(localStorage.getItem('user'));
         console.log(localStorage.getItem('userid'));
     }
@@ -29,21 +27,20 @@ export class Ventas extends Component {
                             <th>Existencia</th>
                             <th>Imagen</th>
                             <th>Owner</th>
-                            <th />
                         </tr>
                     </thead>
                     <tbody>
-                        { this.props.productos.map(producto => (
-                            <tr key={producto.id}>
+                        { this.props.productos.map(producto => {
+                            if(producto.id !== localStorage.getItem('userid'))
+                            return <tr key={producto.id}>
                                 <td>{producto.id}</td>
                                 <td>{producto.nombre}</td>
                                 <td>Q. {producto.precio}</td>
                                 <td>{producto.existencia}</td>
                                 <td><img src={producto.imagen} width="100"></img></td>
                                 <td>{producto.owner}</td>
-                                <td><button onClick={this.props.deleteProducto.bind(this,producto.id)} className="btn btn-danger btn-sm">Eliminar</button></td>
                             </tr>
-                        )) }
+                        }) }
                     </tbody>
                 </table>
             </Fragment>
@@ -55,5 +52,5 @@ const mapStateToProps = state => ({
     productos: state.productos.productos
 })
 
-export default connect(mapStateToProps, { getProductos, deleteProducto })
-(Ventas);
+export default connect(mapStateToProps, { getProductos1 })
+(Compras);

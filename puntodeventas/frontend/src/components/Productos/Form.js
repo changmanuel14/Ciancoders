@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addProducto, editProducto, getProductos, getProductosE } from '../../actions/productos';
+import { addProducto, editProducto, getProductos } from '../../actions/productos';
 
 
 export class Form extends Component {
@@ -39,6 +39,7 @@ export class Form extends Component {
     
 
     onSubmitAdd = e => {
+        let idusuario = localStorage.getItem('userid');
         e.preventDefault(); 
         const { nombre, precio, existencia, imagen } = this.state;
         const producto = {nombre, precio, existencia, imagen};
@@ -126,4 +127,4 @@ const mapStateToProps = state => ({
   productos: state.productos.productos
 })
 
-export default connect(mapStateToProps, { addProducto, editProducto, getProductos, getProductosE })(Form);
+export default connect(mapStateToProps, { addProducto, editProducto, getProductos })(Form);

@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { GET_PRODUCTOS, DELETE_PRODUCTO } from './types';
+import { GET_PRODUCTOS, DELETE_PRODUCTO, ADD_PRODUCTO, EDIT_PRODUCTO } from './types';
+import { tokenConfig } from './auth';
 
 //Obtener productos
-export const getProductos = () => dispatch => {
-    axios.get('/api/productos/')
+export const getProductos = () => (dispatch, getState) => {
+    axios.get('/api/productos/', tokenConfig(getState))
     .then(res => {
         dispatch({
             type: GET_PRODUCTOS,
@@ -12,10 +13,8 @@ export const getProductos = () => dispatch => {
     }).catch(err => console.log(err));
 }
 
-//Obtener productos en especifico
-export const getProductosE = id => dispatch => {
-    let aux = '/api/productos/' + id
-    axios.get(aux)
+export const getProductos1 = () => dispatch => {
+    axios.get('/api/productos1/', )
     .then(res => {
         dispatch({
             type: GET_PRODUCTOS,
@@ -25,9 +24,8 @@ export const getProductosE = id => dispatch => {
 }
 
 //Eliminar productos
-export const deleteProducto = id => dispatch => {
-    let aux = '/api/productos/' + id
-    axios.delete(aux)
+export const deleteProducto = id => (dispatch, getState) => {
+    axios.delete(`/api/productos/${id}`, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: DELETE_PRODUCTO,
@@ -37,8 +35,8 @@ export const deleteProducto = id => dispatch => {
 }
 
 //Agregar productos
-export const addProducto = (producto) => dispatch => {
-    axios.post('/api/productos/', producto)
+export const addProducto = (producto) => (dispatch, getState) => {
+    axios.post('/api/productos/', producto, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: ADD_PRODUCTO,
@@ -48,9 +46,9 @@ export const addProducto = (producto) => dispatch => {
 }
 
 //Editar productos
-export const editProducto = (id, producto) => dispatch => {
+export const editProducto = (id, producto) => (dispatch, getState) => {
     let aux = '/api/productos/' + id + '/'
-    axios.put(aux, producto)
+    axios.put(aux, producto, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: EDIT_PRODUCTO,

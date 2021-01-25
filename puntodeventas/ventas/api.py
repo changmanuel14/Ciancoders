@@ -13,12 +13,12 @@ class ProductoViewSet1(viewsets.ModelViewSet):
 
 class ProductoViewSet(viewsets.ModelViewSet):
     permissions_classes = [
-        permissions.IsAuthenticated
+        permissions.AllowAny
     ]
     serializer_class = ProductoSerializer
 
     def get_queryset(self):
-        return self.request.user.Producto.all()
+        return self.request.user.producto.all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
