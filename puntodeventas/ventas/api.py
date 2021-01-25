@@ -3,12 +3,25 @@ from rest_framework import viewsets, permissions
 from .serializers import ProductoSerializer, EncabezadoSerializer, CuerpoSerializer
 
 
-class ProductoViewSet(viewsets.ModelViewSet):
+class ProductoViewSet1(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     permissions_classes = [
         permissions.AllowAny
     ]
     serializer_class = ProductoSerializer
+
+
+class ProductoViewSet(viewsets.ModelViewSet):
+    permissions_classes = [
+        permissions.IsAuthenticated
+    ]
+    serializer_class = ProductoSerializer
+
+    def get_queryset(self):
+        return self.request.user.Producto.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class EncabezadoViewSet(viewsets.ModelViewSet):

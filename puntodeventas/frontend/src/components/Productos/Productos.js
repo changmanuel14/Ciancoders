@@ -26,7 +26,6 @@ export class Ventas extends Component {
                             <th>Precio</th>
                             <th>Existencia</th>
                             <th>Imagen</th>
-                            <th>Vendedor</th>
                             <th />
                         </tr>
                     </thead>
@@ -38,8 +37,7 @@ export class Ventas extends Component {
                                 <td>Q. {producto.precio}</td>
                                 <td>{producto.existencia}</td>
                                 <td><img src={producto.imagen} width="100"></img></td>
-                                <td>{producto.vendedor}</td>
-                                <td><button onClick={this.props.deleteProducto.bind(this,producto.id)} className="btn btn-danger btn-sm">Delete</button></td>
+                                <td><button onClick={this.props.deleteProducto.bind(this,producto.id)} className="btn btn-danger btn-sm">Eliminar</button></td>
                             </tr>
                         )) }
                     </tbody>

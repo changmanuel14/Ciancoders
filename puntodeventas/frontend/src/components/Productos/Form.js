@@ -1,36 +1,72 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addProducto } from '../../actions/productos';
+import { addProducto, editProducto, getProductos, getProductosE } from '../../actions/productos';
 
 
 export class Form extends Component {
     state = {
+        id: 0,
         nombre: '',
         existencia: 0,
         precio: 0,
         imagen: '',
-        vendedor: 1,
-    }
+    };
 
     static propTypes = {
-        addProducto: PropTypes.func.isRequired
-    }
+        productos: PropTypes.array.isRequired,  
+        addProducto: PropTypes.func.isRequired,
+        editProducto: PropTypes.func.isRequired
+    };
 
+    componentDidMount() {
+      this.props.getProductos();
+    };
+    
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-    onSubmit = e => {
+    onChangeData = e => {
+      this.setState({ [e.target.name]: e.target.value });
+      this.props.productos.forEach(producto => {
+        if(producto.id == e.target.value){
+          this.setState({nombre: producto.nombre});
+          this.setState({precio: producto.precio});
+          this.setState({existencia: producto.existencia});
+          this.setState({imagen: producto.imagen});
+        }
+      });
+    }
+    
+
+    onSubmitAdd = e => {
         e.preventDefault(); 
-        const { nombre, precio, existencia, imagen, vendedor } = this.state;
-        const producto = {nombre, precio, existencia, imagen, vendedor};
+        const { nombre, precio, existencia, imagen } = this.state;
+        const producto = {nombre, precio, existencia, imagen};
         this.props.addProducto(producto);
     };
+
+    onSubmitEdit = e => {
+      e.preventDefault(); 
+      const { id, nombre, precio, existencia, imagen} = this.state;
+      const producto = {nombre, precio, existencia, imagen};
+      this.props.editProducto(id, producto);
+  };
     render() {
-        const { nombre, precio, existencia, imagen, vendedor } = this.state;
+        const { id, nombre, precio, existencia, imagen } = this.state;
         return (
             <div className="card card-body mt-4 mb-4">
-        <h2>Agregar Producto</h2>
-        <form onSubmit={this.onSubmit}>
+        <h2>Agregar/Editar Producto</h2>
+        <form>
+        <div className="form-group">
+            <label>ID</label>
+            <input
+              className="form-control"
+              type="number"
+              name="id"
+              onChange={this.onChangeData}
+              value={id}
+            />
+          </div>
           <div className="form-group">
             <label>Nombre</label>
             <input
@@ -73,8 +109,11 @@ export class Form extends Component {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Aceptar
+            <button type="submit" className="btn btn-primary"  onClick={this.onSubmitAdd}>
+              Nuevo
+            </button>
+            <button type="submit" className="btn btn-primary"  onClick={this.onSubmitEdit}>
+              Editar
             </button>
           </div>
         </form>
@@ -83,4 +122,8 @@ export class Form extends Component {
     }
 }
 
-export default connect(null, { addProducto })(Form);
+const mapStateToProps = state => ({
+  productos: state.productos.productos
+})
+
+export default connect(mapStateToProps, { addProducto, editProducto, getProductos, getProductosE })(Form);

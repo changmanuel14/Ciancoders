@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -8,6 +9,8 @@ class Producto(models.Model):
     precio = models.FloatField()
     imagen = models.CharField(max_length=500)
     existencia = models.IntegerField()
+    owner = models.ForeignKey(
+        User, related_name="producto", on_delete=models.CASCADE, null=True)
 
 
 class Encabezado(models.Model):
