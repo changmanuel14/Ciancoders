@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getProductos, getCuerpo } from '../../actions/productos';
 
-export class Rep1 extends Component {
+export class Rep3 extends Component {
     state = {
-        montos: []
+        suma: 0,
+        contador: 0
     }
 
     static propTypes = {
@@ -15,19 +16,9 @@ export class Rep1 extends Component {
 
     componentDidMount() {
         this.props.getProductos();
-        this.props.getCuerpo();
-        var cuerpos = JSON.parse(localStorage.getItem("cuerpos")).data;
-        var largo = cuerpos.length
         this.props.productos.forEach(producto => {
-            var monto = 0;
-            for(var i = 0 ; i < largo; i++) {
-                //console.log(cuerpos[i].producto);
-                if(cuerpos[i].producto == producto.id) {
-                    monto = monto + cuerpos[i].precio;
-            }
-            producto = {...producto, vendido: monto}
-        }
-            this.state.montos.push(monto);
+            this.state.suma = this.state.suma + producto.precio;
+            this.state.contador++;
         });
 
         console.log(this.state.montos);
@@ -36,7 +27,7 @@ export class Rep1 extends Component {
     
     
     render() {
-        var contador = 0;
+        var cont = 0;
         return (
             <Fragment>
                 <h2>Productos</h2>
@@ -46,27 +37,33 @@ export class Rep1 extends Component {
                             <th>No.</th>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Precio</th>
                             <th>Existencia</th>
                             <th>Imagen</th>
-                            <th>Monto vendido</th>
+                            <th>Precio</th>
                             
                         </tr>
                     </thead>
                     <tbody>
                         { this.props.productos.map(producto => (
                             <tr key={producto.id}>
-                                <td>{(contador++)+1}</td>
+                                <td>{(cont++)+1}</td>
                                 <td>{producto.id}</td>
                                 <td>{producto.nombre}</td>
-                                <td>Q. {producto.precio}</td>
                                 <td>{producto.existencia}</td>
                                 <td><img src={producto.imagen} width="100"></img></td>
-                                <td>Q. {this.state.montos[contador-1]}</td>
+                                <td>Q. {producto.precio}</td>
                                 
                             </tr>
                             
                         )) }
+                        <tr>
+                            <td />
+                            <td />
+                            <td />
+                            <td />
+                            <td>Promedio de precios:</td>
+                            <td>Q. {this.state.suma / this.state.contador}</td>
+                        </tr>
                     </tbody>
                 </table>
             </Fragment>
@@ -79,4 +76,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { getProductos, getCuerpo })
-(Rep1);
+(Rep3);

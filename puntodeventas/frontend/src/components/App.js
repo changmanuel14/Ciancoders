@@ -4,6 +4,8 @@ import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Header from './layout/Header';
 import Dashboard from './Productos/Dashboard';
 import Rep1 from './Productos/Rep1';
+import Rep2 from './Productos/Rep2';
+//import Rep3 from './Productos/Rep3';
 import Compras from './Productos/Compras';
 import Detallecompra from './Productos/Detallecompra';
 import Login from './accounts/Login';
@@ -12,6 +14,7 @@ import PrivateRoute from './common/PrivateRoute';
 import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';
+import Rep3 from './Productos/Rep3';
 
 class App extends Component {
     componentDidMount() {
@@ -31,8 +34,8 @@ class App extends Component {
                                 <Route exact path="/comprar" component={Compras} />
                                 <Route exact path="/detalles" component={Detallecompra} />
                                 <PrivateRoute exact path="/rep1" component={Rep1} />
-                                <PrivateRoute exact path="/rep2" component={Dashboard} />
-                                <PrivateRoute exact path="/rep3" component={Dashboard} />
+                                <PrivateRoute exact path="/rep2" component={Rep2} />
+                                <PrivateRoute exact path="/rep3" component={Rep3} />
                             </Switch>
                         </div>
                     </Fragment>

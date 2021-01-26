@@ -25,14 +25,14 @@ export class Header extends Component {
                 <li className="nav-item">
                     <Link to="/comprar" className="nav-link">Realizar compra</Link>
                 </li>
-                <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Reportes
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><Link to="/rep1" class="dropdown-item">Ventas por Producto</Link></li>
-            <li><Link to="/rep2" class="dropdown-item">Ventas globales</Link></li>
-            <li><Link to="/rep3" class="dropdown-item">Promedio de precios</Link></li>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><Link to="/rep1" className="dropdown-item">Ventas por Producto</Link></li>
+            <li><Link to="/rep2" className="dropdown-item">Ventas globales</Link></li>
+            <li><Link to="/rep3" className="dropdown-item">Promedio de precios</Link></li>
           </ul>
         </li>
                 <li className="nav-item">

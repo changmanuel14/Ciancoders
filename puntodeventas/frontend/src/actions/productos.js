@@ -112,6 +112,7 @@ export const editExistencia = (id, existencia) => dispatch => {
 export const getCuerpo = () => dispatch => {
     axios.get('/api/cuerpos/',)
     .then(res => {
+        localStorage.setItem("cuerpos", JSON.stringify(res));
         dispatch({
             type: GET_CUERPOS,
             payload: res.data
