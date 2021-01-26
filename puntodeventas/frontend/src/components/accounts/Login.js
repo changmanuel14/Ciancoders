@@ -18,8 +18,6 @@ export class Login extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.username);
-        console.log(this.state.password);
         this.props.login(this.state.username, this.state.password);
       };
     

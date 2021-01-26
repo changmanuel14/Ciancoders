@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
@@ -19,18 +19,29 @@ export class Header extends Component {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <span className="navbar-text mr-3">
                     <strong>
-                        { user ? `Bienvenido ${user.username}` : ""}
+                        { user ? `Bienvenido de nuevo ${user.username}` : ""}
                     </strong>
                 </span>
                 <li className="nav-item">
-                                <Link to="/comprar" className="nav-link">Realizar compra</Link>
-                            </li>
-                            <li className="nav-item">
-                                <button className="nav-link btn btn-dark btn-sm text-light" onClick={this.props.logout}>
-                                    Cerrar sesion
-                                </button>
-                            </li>
-                        </ul>
+                    <Link to="/comprar" className="nav-link">Realizar compra</Link>
+                </li>
+                <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Reportes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><Link to="/rep1" class="dropdown-item">Ventas por Producto</Link></li>
+            <li><Link to="/rep2" class="dropdown-item">Ventas globales</Link></li>
+            <li><Link to="/rep3" class="dropdown-item">Promedio de precios</Link></li>
+          </ul>
+        </li>
+                <li className="nav-item">
+                    <button className="nav-link btn btn-dark btn-sm text-danger" onClick={
+                        this.props.logout}>
+                        Cerrar sesion
+                    </button>
+                </li>
+            </ul>
         );
 
         const guestLinks = (

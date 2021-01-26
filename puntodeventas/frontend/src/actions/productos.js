@@ -56,3 +56,65 @@ export const editProducto = (id, producto) => (dispatch, getState) => {
         });
     }).catch(err => console.log(err));
 }
+
+//Agregar productos
+export const addEncabezado = (data) => (dispatch) => {
+
+    axios.post('/api/encabezados/', data)
+    .then(res => {
+        localStorage.setItem('idEncabezado', res.data.id);
+        dispatch({
+            type: ADD_ENCABEZADO,
+            payload: res.data,
+        });
+    }).catch(err => console.log(err));
+}
+
+export const addCuerpo = (data) => (dispatch) => {
+
+    axios.post('/api/cuerpos/', data)
+    .then(res => {
+        dispatch({
+            type: ADD_CUERPO,
+            payload: res.data,
+        });
+    }).catch(err => console.log(err));
+}
+
+export const getEncabezados = () => dispatch => {
+    axios.get('/api/encabezados/',)
+    .then(res => {
+        dispatch({
+            type: GET_ENCABEZADOS,
+            payload: res.data
+        });
+    }).catch(err => console.log(err));
+}
+
+export const editExistencia = (id, existencia) => dispatch => {
+    const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+    
+    const body = JSON.stringify({ existencia });
+    console.log(body);
+    axios.put(`/api/productos/${id}/`, body, config)
+    .then(res => {
+        dispatch({
+            type: EDIT_PRODUCTO,
+            payload: res.data
+        });
+    }).catch(err => console.log(err));
+}
+
+export const getCuerpo = () => dispatch => {
+    axios.get('/api/cuerpos/',)
+    .then(res => {
+        dispatch({
+            type: GET_CUERPOS,
+            payload: res.data
+        });
+    }).catch(err => console.log(err));
+}

@@ -26,6 +26,9 @@ export default function(state = initialState, action) {
         case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
             localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('user', action.payload.username);
+            localStorage.setItem('userid', action.payload.id);
+            location.reload();
             return {
                 ...state,
                 ...action.payload,
@@ -38,6 +41,7 @@ export default function(state = initialState, action) {
         case REGISTER_FAILED:
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+            localStorage.removeItem('userid');
             return { 
                 ...state,
                 token: null,
