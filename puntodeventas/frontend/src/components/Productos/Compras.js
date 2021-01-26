@@ -27,14 +27,17 @@ export class Compras extends Component {
         var cant = 0;
 
         this.props.productos.forEach(producto => {
-            var aux = "cant" + producto.id; 
-            cant = document.getElementById(aux).value;
-            console.log(cant);
-            if(cant != 0) {
-                ids.push(producto.id);
-                cantidades.push(cant);
-                preciotot.push(cant*producto.precio);
-                existencias.push(producto.existencia);
+            if(producto.owner != localStorage.getItem('userid')){
+                var aux = "cant" + producto.id; 
+                console.log(aux);
+                cant = document.getElementById(aux).value;
+                console.log(cant);
+                if(cant != 0) {
+                    ids.push(producto.id);
+                    cantidades.push(cant);
+                    preciotot.push(cant*producto.precio);
+                    existencias.push(producto.existencia);
+                }
             }
           });
 
